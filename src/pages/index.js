@@ -30,6 +30,7 @@ const IndexPage = ({data}) => {
                 )
 
                 fileMap[0].data.push(md)
+                return
             }
 
             if(result === undefined) {
@@ -47,8 +48,6 @@ const IndexPage = ({data}) => {
                 const fileIndex = fileMap.map(idx => idx.name).indexOf(dir)
                 fileMap[fileIndex].data.push(md)
             }
-            console.log(dir)
-     
         }
     };
 
@@ -71,6 +70,10 @@ const IndexPage = ({data}) => {
 
 
     data.allFile.nodes.map(({ relativeDirectory, childMarkdownRemark }) => {
+        if(childMarkdownRemark === null) {
+            return false   
+        }
+
         return mapAreas(relativeDirectory, childMarkdownRemark)
     });
 
