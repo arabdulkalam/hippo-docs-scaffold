@@ -12,9 +12,8 @@ const IndexPage = ({data}) => {
         setContent(html);
     };
 
-    // Takes stock of all unique areas and saves to the fileMap array.
-    // This allows indivdual areas to be generated with no duplication
-    const mapAreas = (dir, md) => {
+    // Map all directories, including sub-directories into a flat structure
+    const mapDirectories = (dir, md) => {
 
         if(md !== null && dir !== null) {
             const result = fileMap.find(directory => directory.name === dir);
@@ -74,7 +73,7 @@ const IndexPage = ({data}) => {
             return false   
         }
 
-        return mapAreas(relativeDirectory, childMarkdownRemark)
+        return mapDirectories(relativeDirectory, childMarkdownRemark)
     });
 
     console.log(fileMap);
@@ -128,24 +127,24 @@ const IndexPage = ({data}) => {
 }
 
 export const query = graphql `
-query IndexPageQuery {  
+query IndexPageQuery {
     allFile(
-        filter: {relativeDirectory: {glob: "markdown/**"}, sourceInstanceName: {eq: "content"}, base: {glob: "*.md"}}
-        sort: {fields: sourceInstanceName, order: ASC}
-      ) {
-        nodes {
-          relativeDirectory
-          sourceInstanceName
-          childMarkdownRemark {
-            frontmatter {
-              area
-              date
-              slug
-              title
-            }
-            html
+      filter: {sourceInstanceName: {eq: "content"}, base: {glob: "*.md"}, relativeDirectory: {glob: "markdown/**"}}
+      sort: {order: DESC, fields: childrenMarkdownRemark___frontmatter___date}
+    ) {
+      nodes {
+        relativeDirectory
+        sourceInstanceName
+        childMarkdownRemark {
+          frontmatter {
+            area
+            date
+            slug
+            title
           }
+          html
         }
+      }
     }
 }`
 
