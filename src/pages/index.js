@@ -5,7 +5,6 @@ import '../styles/global.sass'
 const IndexPage = ({data}) => {
     const [content, setContent] = useState();
     const fileMap = [];
-    const previousDirs = [];
 
     const handleClick = (e, html) => {
         e.preventDefault();
@@ -18,77 +17,64 @@ const IndexPage = ({data}) => {
     const mapAreas = (dir, md) => {
 
         if(md !== null && dir !== null) {
-            console.log(dir)
-            console.log(md)
+            const result = fileMap.find(directory => directory.name === dir);
+            const parentDir = getParent(dir);
 
-            const currentDir = dir;
-            const previousDir = previousDirs[previousDirs.length-1];
-            const directoryDepth = currentDir.split('/').length - 1;
-            
-            if(currentDir !== previousDir) {
-                // Current directory in increment is not a child of the previous directory
-                if(!evaluatePreviousDir(currentDir, previousDir)) {
-                    const result = fileMap.find(directory => directory.name === currentDir);
-
-                    if(result === undefined) {
-                        fileMap.push(
-                            {
-                                "name": currentDir, 
-                                "data": []
-                            }
-                        )
-                    
-                        const latestIdx = fileMap.length - 1;
-                        fileMap[latestIdx].data.push(md)
+            if(fileMap.length < 1) {
+                fileMap.push(
+                    {
+                        "name": dir,
+                        "childOf": parentDir,
+                        "data": []
                     }
-                } else {
+                )
 
-                }
-
-            } else {
-                
+                fileMap[0].data.push(md)
             }
+
+            if(result === undefined) {
+                fileMap.push(
+                    {
+                        "name": dir,
+                        "childOf": parentDir,
+                        "data": []
+                    }
+                )
+
+                const latestIdx = fileMap.length - 1;
+                fileMap[latestIdx].data.push(md)
+            } else {
+                const fileIndex = fileMap.map(idx => idx.name).indexOf(dir)
+                fileMap[fileIndex].data.push(md)
+            }
+            console.log(dir)
+     
         }
     };
 
-    const evaluatePreviousDir = (currentDir, previousDir) => {
-        const lastIdx = currentDir.lastIndexOf('/');
-        const comparePath = "";
+    const getParent = (dir) => {
+        const lastIdx = dir.lastIndexOf('/');
+        let parent = "";
 
         for(let i = 0; i < (lastIdx); i++) {
-            comparePath += currentDir.charAt(i);
-            console.log(comparePath)
+            parent += dir.charAt(i);
         }
-
-        if(comparePath !== previousDir) {
-            return false
-        }
-
-        return true
+        return parent
     };
 
-    const findIndex = (currentDir, directoryDepth) => {
-        const layerStore = [];
-        const layer = "";
-
-        for(let i = 0; i < currentDir; i++) {
-            let char = currentDir.charAt(i);
-            if(char !== '/')
-                layer += char;
-            else
-                layerStore.push(layer);
-                layer = "";
-        }
-
-        for(let i = 0; i < directoryDepth; i++) {
-            
+    const tester = (dir, md) => {
+        if(md !== null && dir !== null) {
+            console.log(`path is: ${dir}`);
+            console.log(md)
         }
     };
+
 
     data.allFile.nodes.map(({ relativeDirectory, childMarkdownRemark }) => {
         return mapAreas(relativeDirectory, childMarkdownRemark)
     });
 
+    console.log(fileMap);
   return (
     <main>
         <title>Home Page</title>

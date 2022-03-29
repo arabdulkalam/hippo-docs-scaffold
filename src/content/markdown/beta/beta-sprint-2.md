@@ -3,6 +3,7 @@ slug: "/history/beta-sprint-2"
 date: "2021-05-21"
 title: "Beta - Sprint 2"
 area: "Beta-Work"
+childOf: "beta"
 ---
 
 #Prototype - Beta - Sprint 2
