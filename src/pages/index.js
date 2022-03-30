@@ -15,38 +15,37 @@ const IndexPage = ({data}) => {
     // Map all directories, including sub-directories into a flat structure
     const mapDirectories = (dir, md) => {
 
-        if(md !== null && dir !== null) {
-            const result = fileMap.find(directory => directory.name === dir);
-            const parentDir = getParent(dir);
+        const result = fileMap.find(directory => directory.name === dir);
+        const parentDir = getParent(dir);
 
-            if(fileMap.length < 1) {
-                fileMap.push(
-                    {
-                        "name": dir,
-                        "childOf": parentDir,
-                        "data": []
-                    }
-                )
+        if(fileMap.length < 1) {
+            fileMap.push(
+                {
+                    "name": dir,
+                    "childOf": parentDir,
+                    "data": []
+                }
+            )
 
-                fileMap[0].data.push(md)
-                return
-            }
+            fileMap[0].data.push(md)
+            return
+        }
 
-            if(result === undefined) {
-                fileMap.push(
-                    {
-                        "name": dir,
-                        "childOf": parentDir,
-                        "data": []
-                    }
-                )
+        if(result === undefined) {
+            fileMap.push(
+                {
+                    "name": dir,
+                    "childOf": parentDir,
+                    "data": []
+                }
+            )
 
-                const latestIdx = fileMap.length - 1;
-                fileMap[latestIdx].data.push(md)
-            } else {
-                const fileIndex = fileMap.map(idx => idx.name).indexOf(dir)
-                fileMap[fileIndex].data.push(md)
-            }
+            const latestEntryIdx = fileMap.length - 1;
+            fileMap[latestEntryIdx].data.push(md)
+
+        } else {
+            const fileIndex = fileMap.map(idx => idx.name).indexOf(dir)
+            fileMap[fileIndex].data.push(md)
         }
     };
 
@@ -60,6 +59,58 @@ const IndexPage = ({data}) => {
         return parent
     };
 
+    const findIndex = (arr, key, query) => {
+
+        if(key === "name") {
+            return arr.map(idx => idx.name).indexOf(query)
+        }
+    };
+
+    // Nest sub-directories within their parent
+    const nestDirectories = () => {
+        const directories = [];
+
+        fileMap.forEach(dir => {
+            const fileIndex = fileMap.map(idx => idx.name).indexOf(dir.name)
+            console.log(`file index is: ${fileIndex}`)
+            directories.push(
+                {
+                    "parent": dir.childOf,
+                    "name": dir.name,
+                    "index": fileIndex
+                }
+            )
+        })
+
+        for (let directory of directories) {
+            let splitParent = directory.parent.split('/');
+            let comparison = "";
+            let dir = [];
+
+            if(directory.parent === "markdown") {
+                continue
+            }
+
+            if(splitParent.length === 2) {
+                dir = fileMap.splice(directory.index, 1);
+                const parentIdx = fileMap.map(idx => idx.name).indexOf(directory.parent)
+
+                fileMap[parentIdx].data.push(
+                    {
+                        "name": directory.name,
+                        "childOf": directory.parent,
+                        "data": [dir]
+                    }
+                )
+            }
+        }
+        console.log("logging directories:")
+        console.log(directories)
+        console.log("logging filemap array:")
+        console.log(fileMap);
+
+    };
+
     const tester = (dir, md) => {
         if(md !== null && dir !== null) {
             console.log(`path is: ${dir}`);
@@ -69,14 +120,13 @@ const IndexPage = ({data}) => {
 
 
     data.allFile.nodes.map(({ relativeDirectory, childMarkdownRemark }) => {
-        if(childMarkdownRemark === null) {
+        if(childMarkdownRemark === null || relativeDirectory === null) {
             return false   
         }
-
         return mapDirectories(relativeDirectory, childMarkdownRemark)
     });
 
-    console.log(fileMap);
+    nestDirectories()
   return (
     <main>
         <title>Home Page</title>
