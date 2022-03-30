@@ -87,28 +87,42 @@ const IndexPage = ({data}) => {
             let comparison = "";
             let dir = [];
 
+            // Top level directories do not need to be nested
             if(directory.parent === "markdown") {
                 continue
             }
 
-            if(splitParent.length === 2) {
-                dir = fileMap.splice(directory.index, 1);
-                const parentIdx = fileMap.map(idx => idx.name).indexOf(directory.parent)
+            // If it is not a top level directory, remove the instance from the main array
+            // This is so the directory and it's contents can be injected directly into it's parent's data array
+            dir = fileMap.splice(directory.index, 1);
 
-                fileMap[parentIdx].data.push(
-                    {
-                        "name": directory.name,
-                        "childOf": directory.parent,
-                        "data": [dir]
-                    }
-                )
+            // Find the parent by using the broken down path
+            for(let i = 0; i < splitParent.length; i++) {
+                if(i === 0) {
+                    comparison += (splitParent[i] + '/')
+                }
+
+                // The comparison string is used to search arrays for a name which matches it
+                comparison += splitParent[i]
+
+                // Maybe need a variable to store all of the array indexes at each level? 
+                // This is so we can easily access the index at each level to eventually inject the data?
+
+                const parentIdx = fileMap.map(idx => idx.name).indexOf(directory.parent)
+                comparison += '/'
             }
+            // fileMap[parentIdx].data.push(
+            //     {
+            //         "name": directory.name,
+            //         "childOf": directory.parent,
+            //         "data": [dir]
+            //     }
+            // )
         }
-        console.log("logging directories:")
+        console.log("logging list of all directories from flat structure:")
         console.log(directories)
         console.log("logging filemap array:")
         console.log(fileMap);
-
     };
 
     const tester = (dir, md) => {
