@@ -22,7 +22,7 @@ const IndexPage = ({data}) => {
             fileMap.push(
                 {
                     "name": dir,
-                    "childOf": parentDir,
+                    "parent": parentDir,
                     "data": []
                 }
             )
@@ -35,7 +35,7 @@ const IndexPage = ({data}) => {
             fileMap.push(
                 {
                     "name": dir,
-                    "childOf": parentDir,
+                    "parent": parentDir,
                     "data": []
                 }
             )
@@ -67,71 +67,24 @@ const IndexPage = ({data}) => {
     };
 
     // Nest sub-directories within their parent
-    const nestDirectories = () => {
-        const directories = [];
-
-        fileMap.forEach(dir => {
-            const fileIndex = fileMap.map(idx => idx.name).indexOf(dir.name)
-            console.log(`file index is: ${fileIndex}`)
-            directories.push(
-                {
-                    "parent": dir.childOf,
-                    "name": dir.name,
-                    "index": fileIndex
-                }
-            )
+    const nestDirectory = (directory) => {
+        const child = fileMap.find(dir => dir.parent === directory.name);
+        const currentIdx = fileMap.map(idx => idx.name).indexOf(directory.name);
+    
+        if(child === undefined) {
+            return
+        }
+    
+        const childIdx = fileMap.map(idx => idx.name).indexOf(child.name);
+        fileMap.forEach( node => {
+            if(node.parent === child.name) {
+                const nodeIdx = fileMap.map(idx => idx.name).indexOf(node.name);
+                nestDirectory(child)
+                fileMap[childIdx].data = fileMap[childIdx].data.concat(fileMap.splice(nodeIdx, 1))
+                fileMap[currentIdx].data = fileMap[currentIdx].data.concat(fileMap.splice(childIdx, 1));
+            }
         })
-
-        for (let directory of directories) {
-            let splitParent = directory.parent.split('/');
-            let comparison = "";
-            let dir = [];
-
-            // Top level directories do not need to be nested
-            if(directory.parent === "markdown") {
-                continue
-            }
-
-            // If it is not a top level directory, remove the instance from the main array
-            // This is so the directory and it's contents can be injected directly into it's parent's data array
-            dir = fileMap.splice(directory.index, 1);
-
-            // Find the parent by using the broken down path
-            for(let i = 0; i < splitParent.length; i++) {
-                if(i === 0) {
-                    comparison += (splitParent[i] + '/')
-                }
-
-                // The comparison string is used to search arrays for a name which matches it
-                comparison += splitParent[i]
-
-                // Maybe need a variable to store all of the array indexes at each level? 
-                // This is so we can easily access the index at each level to eventually inject the data?
-
-                const parentIdx = fileMap.map(idx => idx.name).indexOf(directory.parent)
-                comparison += '/'
-            }
-            // fileMap[parentIdx].data.push(
-            //     {
-            //         "name": directory.name,
-            //         "childOf": directory.parent,
-            //         "data": [dir]
-            //     }
-            // )
-        }
-        console.log("logging list of all directories from flat structure:")
-        console.log(directories)
-        console.log("logging filemap array:")
-        console.log(fileMap);
     };
-
-    const tester = (dir, md) => {
-        if(md !== null && dir !== null) {
-            console.log(`path is: ${dir}`);
-            console.log(md)
-        }
-    };
-
 
     data.allFile.nodes.map(({ relativeDirectory, childMarkdownRemark }) => {
         if(childMarkdownRemark === null || relativeDirectory === null) {
@@ -140,7 +93,10 @@ const IndexPage = ({data}) => {
         return mapDirectories(relativeDirectory, childMarkdownRemark)
     });
 
-    nestDirectories()
+    fileMap.forEach(dir => {aq
+        nestDirectory(dir);
+    })
+
   return (
     <main>
         <title>Home Page</title>
