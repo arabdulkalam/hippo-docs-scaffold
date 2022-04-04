@@ -60,30 +60,23 @@ const IndexPage = ({data}) => {
         return parent
     };
 
-    const findIndex = (arr, key, query) => {
-
-        if(key === "name") {
-            return arr.map(idx => idx.name).indexOf(query)
-        }
-    };
-
     // Nest sub-directories within their parent
     const nestDirectory = (directory) => {
         const child = fileMap.find(dir => dir.parent === directory.name);    
-        const idx = fileMap.map(idx => idx.name).indexOf(directory.name);    
+        const currentIdx = fileMap.map(idx => idx.name).indexOf(directory.name);    
     
         if(child === undefined) {
-            return idx
+            return currentIdx;
         }
     
         const childIdx = fileMap.map(idx => idx.name).indexOf(child.name);
         fileMap.forEach( node => {
             if(node.parent === child.name) {
                 const nodeIdx = fileMap.map(idx => idx.name).indexOf(node.name);
-                fileMap[nodeIdx].data = fileMap[nodeIdx].data.concat(fileMap.splice(nestDirectory(node), 1))
+                fileMap[nodeIdx].data = fileMap[nodeIdx].data.concat(fileMap.splice(nestDirectory(node), 1));
        
-                fileMap[idx].data = fileMap[idx].data.concat(fileMap.splice(childIdx, 1));
-                fileMap[childIdx].data = fileMap[childIdx].data.concat(fileMap.splice(nodeIdx, 1)) 
+                fileMap[currentIdx].data = fileMap[currentIdx].data.concat(fileMap.splice(childIdx, 1));
+                fileMap[childIdx].data = fileMap[childIdx].data.concat(fileMap.splice(nodeIdx, 1));
             }
         })
     };
