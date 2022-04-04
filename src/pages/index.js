@@ -13,11 +13,10 @@ const IndexPage = ({data}) => {
     };
 
     // Map all directories, including sub-directories into a flat structure
-    const mapDirectories = (dir, md) => {
+    const createDirectories = (dir, md) => {
 
         const result = fileMap.find(directory => directory.name === dir);
         const parentDir = getParent(dir);
-        console.log(`dir is: ${dir}`)
 
         if(fileMap.length < 1) {
             fileMap.push(
@@ -62,35 +61,40 @@ const IndexPage = ({data}) => {
 
     // Nest sub-directories within their parent
     const nestDirectory = (directory) => {
-        const child = fileMap.find(dir => dir.parent === directory.name);    
-        const currentIdx = fileMap.map(idx => idx.name).indexOf(directory.name);    
-    
+        const child = fileMap.find(dir => dir.parent === directory.name);
+        
         if(child === undefined) {
-            return currentIdx;
+            return
         }
     
-        const childIdx = fileMap.map(idx => idx.name).indexOf(child.name);
         fileMap.forEach( node => {
             if(node.parent === child.name) {
-                const nodeIdx = fileMap.map(idx => idx.name).indexOf(node.name);
-                fileMap[nodeIdx].data = fileMap[nodeIdx].data.concat(fileMap.splice(nestDirectory(node), 1));
-       
-                fileMap[currentIdx].data = fileMap[currentIdx].data.concat(fileMap.splice(childIdx, 1));
-                fileMap[childIdx].data = fileMap[childIdx].data.concat(fileMap.splice(nodeIdx, 1));
+                nestDirectory(child)
             }
         })
+        let currentIdx = fileMap.map(idx => idx.name).indexOf(directory.name);
+        let childIdx = fileMap.map(idx => idx.name).indexOf(child.name);
+
+        fileMap[currentIdx].data = fileMap[currentIdx].data.concat(fileMap.splice(childIdx, 1));
     };
 
     data.allFile.nodes.map(({ relativeDirectory, childMarkdownRemark }) => {
         if(childMarkdownRemark === null || relativeDirectory === null) {
             return false   
         }
-        return mapDirectories(relativeDirectory, childMarkdownRemark)
+        return createDirectories(relativeDirectory, childMarkdownRemark)
     });
+
+    console.log(fileMap)
 
     fileMap.forEach(dir => {
         nestDirectory(dir);
-    })
+    });
+
+    const outputDirectories = () => {
+
+    }
+
     console.log(fileMap)
     return (
         <h1>test</h1>
@@ -101,7 +105,7 @@ export const query = graphql `
 query IndexPageQuery {
     allFile(
       filter: {sourceInstanceName: {eq: "content"}, base: {glob: "*.md"}, relativeDirectory: {glob: "markdown/**"}}
-      sort: {order: DESC, fields: childrenMarkdownRemark___frontmatter___date}
+      sort: {order: ASC, fields: relativePath}
     ) {
       nodes {
         relativeDirectory
