@@ -17,6 +17,7 @@ const IndexPage = ({data}) => {
 
         const result = fileMap.find(directory => directory.name === dir);
         const parentDir = getParent(dir);
+        console.log(`dir is: ${dir}`)
 
         if(fileMap.length < 1) {
             fileMap.push(
@@ -68,20 +69,21 @@ const IndexPage = ({data}) => {
 
     // Nest sub-directories within their parent
     const nestDirectory = (directory) => {
-        const child = fileMap.find(dir => dir.parent === directory.name);
-        const currentIdx = fileMap.map(idx => idx.name).indexOf(directory.name);
+        const child = fileMap.find(dir => dir.parent === directory.name);    
+        const idx = fileMap.map(idx => idx.name).indexOf(directory.name);    
     
         if(child === undefined) {
-            return
+            return idx
         }
     
         const childIdx = fileMap.map(idx => idx.name).indexOf(child.name);
         fileMap.forEach( node => {
             if(node.parent === child.name) {
                 const nodeIdx = fileMap.map(idx => idx.name).indexOf(node.name);
-                nestDirectory(child)
-                fileMap[childIdx].data = fileMap[childIdx].data.concat(fileMap.splice(nodeIdx, 1))
-                fileMap[currentIdx].data = fileMap[currentIdx].data.concat(fileMap.splice(childIdx, 1));
+                fileMap[nodeIdx].data = fileMap[nodeIdx].data.concat(fileMap.splice(nestDirectory(node), 1))
+       
+                fileMap[idx].data = fileMap[idx].data.concat(fileMap.splice(childIdx, 1));
+                fileMap[childIdx].data = fileMap[childIdx].data.concat(fileMap.splice(nodeIdx, 1)) 
             }
         })
     };
@@ -93,57 +95,13 @@ const IndexPage = ({data}) => {
         return mapDirectories(relativeDirectory, childMarkdownRemark)
     });
 
-    fileMap.forEach(dir => {aq
+    fileMap.forEach(dir => {
         nestDirectory(dir);
     })
-
-  return (
-    <main>
-        <title>Home Page</title>
-        <h1 className="govuk-heading-l">Hippo Documentation Scaffholding</h1>
-
-        <div className="govuk-grid-row">
-            <div className="govuk-grid-column-one-third">
-                <nav id="side-menu">
-                    <ol className="govuk-list">
-                            {fileMap.map((area, i) => {
-                                return (
-                                    <details key={i}>
-                                        <summary>{area.name}</summary>
-                                        <ul>
-                                            {area.data.map((page, i) => {
-                                                return (
-                                                    <li key={i}>
-                                                        <a 
-                                                            className="govuk-link" 
-                                                            href={page.frontmatter.slug}
-                                                            onClick={(event) => handleClick(event, page.html)}
-                                                        >
-                                                            <h2 className="govuk-heading-l">{page.frontmatter.title}</h2>
-                                                        </a>
-                                                        <h4 className="govuk-heading-s">
-                                                            <time dateTime={page.frontmatter.date}>{page.frontmatter.date}</time>
-                                                        </h4>
-                                                        <hr className="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
-                                                    </li>
-                                                )
-                                            })}
-                                        </ul>
-                                    </details>
-                                )
-                            })}   
-                    </ol>
-                </nav>
-            </div>
-            <div 
-                className="govuk-grid-column-two-thirds" 
-                id="content-area"
-                dangerouslySetInnerHTML={{ __html: content}}
-            >
-            </div>
-        </div>
-    </main>
-  )
+    console.log(fileMap)
+    return (
+        <h1>test</h1>
+    )
 }
 
 export const query = graphql `
@@ -157,7 +115,6 @@ query IndexPageQuery {
         sourceInstanceName
         childMarkdownRemark {
           frontmatter {
-            area
             date
             slug
             title
