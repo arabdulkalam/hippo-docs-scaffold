@@ -41,11 +41,12 @@ const IndexPage = ({data}) => {
             )
 
             const latestEntryIdx = fileMap.length - 1;
-            fileMap[latestEntryIdx].data.push(md)
-
+            fileMap[latestEntryIdx].data.push(md);
+            return
         } else {
-            const fileIndex = fileMap.map(idx => idx.name).indexOf(dir)
-            fileMap[fileIndex].data.push(md)
+            const fileIndex = fileMap.map(idx => idx.name).indexOf(dir);
+            fileMap[fileIndex].data.push(md);
+            return
         }
     };
 
@@ -69,7 +70,7 @@ const IndexPage = ({data}) => {
 
         fileMap.forEach( node => {
             if(node.parent === child.name) {
-                nestDirectory(child)
+                nestDirectory(child);
             }
         })
 
@@ -112,7 +113,7 @@ const IndexPage = ({data}) => {
                 <summary>{directory.name}</summary>
                 <ul>
                     {directory.data.map((node, i) => {
-                        const key = Object.keys(node)[2]
+                        const key = Object.keys(node)[2];
                         if(key === "data") {
                             return (
                                 outputDirectory(node)
@@ -175,7 +176,7 @@ const IndexPage = ({data}) => {
             </div>
         </main>
     )
-}
+};
 
 export const query = graphql `
 query IndexPageQuery {
