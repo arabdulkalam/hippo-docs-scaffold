@@ -80,27 +80,39 @@ const IndexPage = ({data}) => {
         fileMap[currentIdx].data = fileMap[currentIdx].data.concat(fileMap.splice(childIdx, 1));
     };
 
+    // Shortens directory name for display purposes
+    // so that the entire file path is not displayed as a dir name on the front end
+    const formatDirName = (name) => {
+        let removeFrom = name.lastIndexOf('/');
+        let newName = "";
+
+        for(let i = removeFrom + 1; i < name.length; i++){
+            newName += name[i];
+        }
+        return newName;
+    };
+
     const outputDirectory = (directory) => {
         const child = directory.data.find(dir => dir.parent === directory.name);
 
         if(child === undefined) {
             return (
                 <details>
-                    <summary>{directory.name}</summary>
+                    <summary>{formatDirName(directory.name)}</summary>
                     <ul>
                         {directory.data.map((node, i) =>
-                            <li key={i}>
+                            <li className="page" key={i}>
                                 <a 
-                                    className="govuk-link" 
+ 
                                     href={node.frontmatter.slug}
                                     onClick={(event) => handleClick(event, node.html)}
                                 >
-                                    <h2 className="govuk-heading-l">{node.frontmatter.title}</h2>
+                                    <h2 >{node.frontmatter.title}</h2>
                                 </a>
-                                <h4 className="govuk-heading-s">
+                                <h4 >
                                     <time dateTime={node.frontmatter.date}>{node.frontmatter.date}</time>
                                 </h4>
-                                <hr className="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
+                                <hr/>
                             </li>
                         )}
                     </ul>
@@ -110,7 +122,7 @@ const IndexPage = ({data}) => {
 
         return ( 
             <details>
-                <summary>{directory.name}</summary>
+                <summary>{formatDirName(directory.name)}</summary>
                 <ul>
                     {directory.data.map((node, i) => {
                         const key = Object.keys(node)[2];
@@ -120,18 +132,17 @@ const IndexPage = ({data}) => {
                             )
                         } else {
                             return (
-                                <li key={i}>
+                                <li className="page" key={i}>
                                     <a 
-                                        className="govuk-link" 
                                         href={node.frontmatter.slug}
                                         onClick={(event) => handleClick(event, node.html)}
                                     >
-                                        <h2 className="govuk-heading-l">{node.frontmatter.title}</h2>
+                                        <h2>{node.frontmatter.title}</h2>
                                     </a>
-                                    <h4 className="govuk-heading-s">
+                                    <h4>
                                         <time dateTime={node.frontmatter.date}>{node.frontmatter.date}</time>
                                     </h4>
-                                    <hr className="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
+                                    <hr/>
                                 </li>
                             )
                         }
@@ -155,12 +166,12 @@ const IndexPage = ({data}) => {
     return (
         <main>
             <title>Home Page</title>
-            <h1 className="govuk-heading-l">Hippo Documentation Scaffholding</h1>
+            <h1 id="title">Hippo Documentation Scaffholding</h1>
 
-            <div className="govuk-grid-row">
-                <div className="govuk-grid-column-one-third">
-                    <nav id="side-menu">
-                        <ol className="govuk-list" >
+            <div id="side-menu">
+                <div>
+                    <nav >
+                        <ol>
                             {
                                 fileMap.map(dir => outputDirectory(dir))
                             }
@@ -169,7 +180,6 @@ const IndexPage = ({data}) => {
                 </div>
             </div>
             <div 
-                className="govuk-grid-column-two-thirds" 
                 id="content-area"
                 dangerouslySetInnerHTML={{ __html: content}}
             >
