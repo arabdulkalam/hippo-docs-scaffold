@@ -83,11 +83,15 @@ const IndexPage = ({data}) => {
     // Shortens directory name for display purposes
     // so that the entire file path is not displayed as a dir name on the front end
     const formatDirName = (name) => {
-        let removeFrom = name.lastIndexOf('/');
+        let removeFrom = (name.lastIndexOf('/') +1 );
         let newName = "";
 
-        for(let i = removeFrom + 1; i < name.length; i++){
-            newName += name[i];
+        for(let i = removeFrom; i < name.length; i++){
+            if(i === removeFrom) {
+                newName += name[i].toUpperCase()
+            } else {
+                newName += name[i];
+            }
         }
         return newName;
     };
@@ -137,7 +141,7 @@ const IndexPage = ({data}) => {
                                         href={node.frontmatter.slug}
                                         onClick={(event) => handleClick(event, node.html)}
                                     >
-                                        <h2>{node.frontmatter.title}</h2>
+                                        <h4>{node.frontmatter.title}</h4>
                                     </a>
                                     <h4>
                                         <time dateTime={node.frontmatter.date}>{node.frontmatter.date}</time>
@@ -168,15 +172,13 @@ const IndexPage = ({data}) => {
             <title>Home Page</title>
             <h1 id="title">Hippo Documentation Scaffholding</h1>
 
-            <div id="side-menu">
-                <div>
-                    <nav >
-                        <ol>
-                            {
-                                fileMap.map(dir => outputDirectory(dir))
-                            }
-                        </ol>
-                    </nav>
+            <div class="treeview">
+                <ol id="main-list">
+                    {
+                        fileMap.map(dir => outputDirectory(dir))
+                    }
+                </ol>
+            <div>
                 </div>
             </div>
             <div 

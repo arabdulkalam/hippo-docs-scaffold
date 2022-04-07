@@ -21,16 +21,53 @@ img
     width: 100%
     text-align: center
 
-ol 
-    display: inline-block 
-    position: relative 
-    background: pink
+details details
+  margin-left:10pt
+.treeview 
+  padding:5pt
+  border: inset 2px lightGray
+  width:240pt
+  font:10pt Arial
+  display:inline-block
 
-li 
-    display: block 
-    position: relative 
-    float: left 
-    clear: both
-    text-align: center
-    padding-right: 10px
-    padding-left: 10px
+summary[selected="true"]
+  background-color:yellow
+
+
+
+summary 
+  cursor:pointer
+
+summary:hover 
+  background-color:#C0e0ff
+
+summary .icon
+  width:16px
+  height:16px
+
+summary:only-child::-webkit-details-marker
+  color:transparent
+
+details details 
+  margin-left:10pt
+  display:block
+
+#display 
+  display:inline-block
+  vertical-align:top
+
+#display font-family:Arial
+.label 
+    font-size:14pt 
+    font-weight: bold
+.descr 
+    font-size:10pt
+
+summary::-webkit-details-marker
+  background-image:url('http://files.softicons.com/download/folder-icons/plastic-folders-icons-by-sirubico/png/16x16/Folder-Generic.png')
+  width:16px
+  height:16px
+  color:transparent
+
+ul
+    list-style: none
