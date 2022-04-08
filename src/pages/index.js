@@ -172,14 +172,12 @@ const IndexPage = ({data}) => {
             <title>Home Page</title>
             <h1 id="title">Hippo Documentation Scaffholding</h1>
 
-            <div class="treeview">
+            <div id="tree-view">
                 <ol id="main-list">
                     {
                         fileMap.map(dir => outputDirectory(dir))
                     }
                 </ol>
-            <div>
-                </div>
             </div>
             <div 
                 id="content-area"
