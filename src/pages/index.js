@@ -170,7 +170,10 @@ const IndexPage = ({data}) => {
     return (
         <main>
             <title>Home Page</title>
-            <h1 id="title">Hippo Documentation Scaffholding</h1>
+            <nav id="heading-bar">
+                <img id="logo" src="/images/hippo-logo.jpeg"></img>
+                <h1 id="site-title">Hippo Documentation Scaffolding</h1>
+            </nav>
 
             <div id="tree-view">
                 <ol id="main-list">

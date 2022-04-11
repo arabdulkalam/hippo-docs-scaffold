@@ -5,6 +5,32 @@ $govuk-global-styles: true
 img
   width: 100%
 
+#logo
+  width: 200px
+
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300,100,700,900)
+
+h1,
+p,
+a,
+li,
+summary
+  margin: 0
+  padding: 0
+  font-family: 'Lato'
+
+#site-title
+  font-size: 2.8em
+  padding: 10px 0
+  font-weight: 800
+
+#heading-bar 
+  width: 100%
+  padding: 60px 0
+  text-align: center
+  background: #33cccc
+  color: white
+
 #content-area
   overflow-y: scroll
   overflow-x: hidden
@@ -17,7 +43,8 @@ img
   width: 65%
 
 #side-menu
-  height: 800px
+  height: 100%
+  max-width: 30%
   overflow-y: scroll
   overflow-x: hidden
   overflow: auto
@@ -26,55 +53,51 @@ img
   width: 100%
   text-align: center
 
-details details
-  margin-left:10pt
+// details details
+//   margin-left: 10pt
 
 #tree-view
+  height: 100%
+  background: #948f8f
   margin-top: 20px
+  padding-top: 40px
+  padding-right: 40px
   width: 30%
   max-width: 30%
   margin: 0
-  font:10pt Arial
+  font: 10pt
   display: inline-block
   float: left
 
-summary[selected="true"]
-  background-color:yellow
-
 summary
-  cursor:pointer
+  cursor: pointer
+  padding-top: 10px
+  padding-bottom: 10px
 
 summary:hover 
   background-color:#C0e0ff
+  transition-duration: 0.2s
 
 summary .icon
-  width:16px
-  height:16px
+  width: 20px
+  height: 20px
 
 summary:only-child::-webkit-details-marker
-  color:transparent
+  color: transparent
 
 details details 
-  margin-left:10pt
-  display:block
+  margin-left: 10pt
+  display: block
 
 #display 
-  display:inline-block
-  vertical-align:top
-
-#display 
-  font-family:Arial
-.label 
-  font-size:14pt 
-  font-weight: bold
-.descr 
-  font-size:10pt
+  display: inline-block
+  vertical-align: top
 
 summary::-webkit-details-marker
-  background-image:url('http://files.softicons.com/download/folder-icons/plastic-folders-icons-by-sirubico/png/16x16/Folder-Generic.png')
-  width:16px
-  height:16px
-  color:transparent
+  background-image: url("../images/generic-site/Folder-Generic.png")
+  width: 16px
+  height: 16px
+  color: transparent
 
 ul
   list-style: none
