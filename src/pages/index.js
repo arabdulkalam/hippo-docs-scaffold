@@ -174,7 +174,7 @@ const IndexPage = ({data}) => {
                 <img id="logo" src="/images/hippo-logo.jpeg"></img>
                 <h1 id="site-title">Hippo Documentation Scaffolding</h1>
             </nav>
-
+            <hr id="heading-banner"/>
             <div id="tree-view">
                 <ol id="main-list">
                     {
