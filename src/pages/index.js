@@ -27,7 +27,7 @@ const IndexPage = ({data}) => {
                 }
             )
 
-            fileMap[0].data.push(md)
+            fileMap[0].data.push(md);
             return
         }
 
@@ -129,6 +129,7 @@ const IndexPage = ({data}) => {
                 <summary>{formatDirName(directory.name)}</summary>
                 <ul>
                     {directory.data.map((node, i) => {
+                        // WIP: Remove the hard coded way to evaluate if the node in question is a directory 
                         const key = Object.keys(node)[2];
                         if(key === "data") {
                             return (
