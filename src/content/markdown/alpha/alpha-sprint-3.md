@@ -5,9 +5,9 @@ title: "Alpha - Sprint 3"
 area: "Alpha-Work"
 ---
 
-#Interactive Wireframe Research Tool - Sprint 3
+Interactive Wireframe Research Tool - Sprint 3
 
-##What we’ve done
+What we’ve done
 
 We designed this prototype in order:
 
@@ -20,7 +20,7 @@ We also looked into other services such as Get into Teaching and their personas 
 
 We then conducted research with a further 4 users to compare our prototype with National Careers Service and Get into Teaching to glean more information about the content and the GDS look and feel. 
 
-##User research
+User research
 
 Some of the insights we attained are:
 
@@ -67,7 +67,7 @@ Link to user research findings:
 ...
 
 
-##Screenshots 
+Screenshots 
 
 **Start page**
 ![startpage](/images/sprint-3/Sprint%203%20-%20Landing%20Page.png)
@@ -92,7 +92,7 @@ A feature we tested was:
 1) Gov.uk digital design look & feel
 2) Information architecture based around identified user needs
 
-###Our users told us:
+Our users told us:
 
 Users expressed faith expressed in gov.uk linearity [manageable steps, secure process]
 

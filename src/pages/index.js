@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { graphql } from 'gatsby'
-import '../styles/global.sass'
+import { graphql } from 'gatsby';
+import '../styles/global.sass';
 
 const IndexPage = ({data}) => {
     const [content, setContent] = useState();
@@ -80,8 +80,7 @@ const IndexPage = ({data}) => {
         fileMap[currentIdx].data = fileMap[currentIdx].data.concat(fileMap.splice(childIdx, 1));
     };
 
-    // Shortens directory name for display purposes
-    // so that the entire file path is not displayed as a dir name on the front end
+    // Shortens directory name on the UI, so that the whole path is not displayed
     const formatDirName = (name) => {
         let removeFrom = (name.lastIndexOf('/') +1 );
         let newName = "";
@@ -96,6 +95,7 @@ const IndexPage = ({data}) => {
         return newName;
     };
 
+    // Used to render all directories from the structure into HTML
     const outputDirectory = (directory) => {
         const child = directory.data.find(dir => dir.parent === directory.name);
 
@@ -151,11 +151,12 @@ const IndexPage = ({data}) => {
                             )
                         }
                     })}
-               </ul>
+                </ul>
             </details>
         )
     };
 
+    // Could these be wrapped in some sort of init function?
     data.allFile.nodes.map(({ relativeDirectory, childMarkdownRemark }) => {
         if(childMarkdownRemark === null || relativeDirectory === null) {
             return false   
@@ -174,12 +175,10 @@ const IndexPage = ({data}) => {
                 <img id="logo" src="/images/hippo-logo.jpeg"></img>
                 <h1 id="site-title">Hippo Documentation Scaffolding</h1>
             </nav>
-            <hr id="heading-banner"/>
+
             <div id="tree-view">
                 <ol id="main-list">
-                    {
-                        fileMap.map(dir => outputDirectory(dir))
-                    }
+                    {fileMap.map(dir => outputDirectory(dir))}    
                 </ol>
             </div>
             <div 
