@@ -12,7 +12,8 @@
     "start": "gatsby develop",
     "build": "gatsby build",
     "serve": "gatsby serve",
-    "clean": "gatsby clean"
+    "clean": "gatsby clean",
+    "heroku-postbuild": "gatsby build"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.5",
