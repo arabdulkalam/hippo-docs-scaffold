@@ -3,6 +3,7 @@ slug: "/history/alpha-sprint-3"
 date: "2021-01-25"
 title: "Alpha - Sprint 3"
 area: "Alpha-Work"
+tags: "tag1,tag2"
 ---
 
 # Interactive Wireframe Research Tool - Sprint 3

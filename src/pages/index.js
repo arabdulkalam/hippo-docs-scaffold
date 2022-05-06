@@ -4,13 +4,13 @@ import '../styles/global.sass';
 
 const IndexPage = ({data}) => {
 
-    const [content, setContent] = useState();
+    const [content, setContent] = useState({tags: [], html: ''});
     const fileMap = [];
 
-    const handleClick = (e, html) => {
+    const handleClick = (e, node) => {
         e.preventDefault();
 
-        setContent(html);
+        setContent({tags: node.frontmatter.tags?.split(','), html: node.html});
     };
 
     // Map all directories, including sub-directories into a flat structure
@@ -110,7 +110,7 @@ const IndexPage = ({data}) => {
                                 <a
 
                                     href={node.frontmatter.slug}
-                                    onClick={(event) => handleClick(event, node.html)}
+                                    onClick={(event) => handleClick(event, node)}
                                 >
                                     <h4>{node.frontmatter.title}</h4>
                                 </a>
@@ -141,7 +141,7 @@ const IndexPage = ({data}) => {
                                 <li className="page" key={i}>
                                     <a
                                         href={node.frontmatter.slug}
-                                        onClick={(event) => handleClick(event, node.html)}
+                                        onClick={(event) => handleClick(event, node)}
                                     >
                                         <h4>{node.frontmatter.title}</h4>
                                     </a>
@@ -179,7 +179,9 @@ const IndexPage = ({data}) => {
                     </ol>
                 </div>
             </div>
-            <div className="govuk-grid-column-two-thirds" dangerouslySetInnerHTML={{__html: content}}>
+            <div>
+                <div><ul>{content.tags.map(t => (<li className="tag"><a href={`/tag?q=${encodeURIComponent(t)}`}>{t}</a></li>))}</ul></div>
+                <div className="govuk-grid-column-two-thirds" dangerouslySetInnerHTML={{__html: content.html}}></div>
             </div>
         </div>
     )
@@ -199,6 +201,7 @@ export const query = graphql`
                         date
                         slug
                         title
+                        tags
                     }
                     html
                 }
