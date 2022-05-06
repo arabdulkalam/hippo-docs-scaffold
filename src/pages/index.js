@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { graphql } from 'gatsby';
+import React, {useState} from 'react'
+import {graphql} from 'gatsby';
 import '../styles/global.sass';
 
 const IndexPage = ({data}) => {
@@ -18,7 +18,7 @@ const IndexPage = ({data}) => {
         const result = fileMap.find(directory => directory.name === dir);
         const parentDir = getParent(dir);
 
-        if(fileMap.length < 1) {
+        if (fileMap.length < 1) {
             fileMap.push(
                 {
                     "name": dir,
@@ -31,7 +31,7 @@ const IndexPage = ({data}) => {
             return
         }
 
-        if(result === undefined) {
+        if (result === undefined) {
             fileMap.push(
                 {
                     "name": dir,
@@ -54,7 +54,7 @@ const IndexPage = ({data}) => {
         const lastIdx = dir.lastIndexOf('/');
         let parent = "";
 
-        for(let i = 0; i < (lastIdx); i++) {
+        for (let i = 0; i < (lastIdx); i++) {
             parent += dir.charAt(i);
         }
         return parent
@@ -64,12 +64,12 @@ const IndexPage = ({data}) => {
     const nestDirectory = (directory) => {
         const child = fileMap.find(dir => dir.parent === directory.name);
 
-        if(child === undefined) {
+        if (child === undefined) {
             return
         }
 
-        fileMap.forEach( node => {
-            if(node.parent === child.name) {
+        fileMap.forEach(node => {
+            if (node.parent === child.name) {
                 nestDirectory(child);
             }
         })
@@ -82,11 +82,11 @@ const IndexPage = ({data}) => {
 
     // Shortens directory name on the UI, so that the whole path is not displayed
     const formatDirName = (name) => {
-        let removeFrom = (name.lastIndexOf('/') +1 );
+        let removeFrom = (name.lastIndexOf('/') + 1);
         let newName = "";
 
-        for(let i = removeFrom; i < name.length; i++){
-            if(i === removeFrom) {
+        for (let i = removeFrom; i < name.length; i++) {
+            if (i === removeFrom) {
                 newName += name[i].toUpperCase()
             } else {
                 newName += name[i];
@@ -99,23 +99,23 @@ const IndexPage = ({data}) => {
     const outputDirectory = (directory) => {
         const child = directory.data.find(dir => dir.parent === directory.name);
 
-        if(child === undefined) {
+        if (child === undefined) {
             return (
                 <details>
-                    <summary>{formatDirName(directory.name)}</summary>
+                    <summary><h4 className="tree-header">{formatDirName(directory.name)}</h4></summary>
                     <ul>
                         {directory.data.map((node, i) =>
                             <li className="page" key={i}>
-                                <a 
- 
+                                <a
+
                                     href={node.frontmatter.slug}
                                     onClick={(event) => handleClick(event, node.html)}
                                 >
-                                    <h2 >{node.frontmatter.title}</h2>
+                                    <h4>{node.frontmatter.title}</h4>
                                 </a>
-                                <h4 >
+                                <p>
                                     <time dateTime={node.frontmatter.date}>{node.frontmatter.date}</time>
-                                </h4>
+                                </p>
                                 <hr/>
                             </li>
                         )}
@@ -124,29 +124,29 @@ const IndexPage = ({data}) => {
             )
         }
 
-        return ( 
+        return (
             <details>
-                <summary>{formatDirName(directory.name)}</summary>
+                <summary><h4 className="tree-header">{formatDirName(directory.name)}</h4></summary>
                 <ul>
                     {directory.data.map((node, i) => {
-                        // WIP: Remove the hard coded way to evaluate if the node in question is a directory 
+                        // WIP: Remove the hard coded way to evaluate if the node in question is a directory
                         const key = Object.keys(node)[2];
-                        if(key === "data") {
+                        if (key === "data") {
                             return (
                                 outputDirectory(node)
                             )
                         } else {
                             return (
                                 <li className="page" key={i}>
-                                    <a 
+                                    <a
                                         href={node.frontmatter.slug}
                                         onClick={(event) => handleClick(event, node.html)}
                                     >
                                         <h4>{node.frontmatter.title}</h4>
                                     </a>
-                                    <h4>
+                                    <p>
                                         <time dateTime={node.frontmatter.date}>{node.frontmatter.date}</time>
-                                    </h4>
+                                    </p>
                                     <hr/>
                                 </li>
                             )
@@ -158,9 +158,9 @@ const IndexPage = ({data}) => {
     };
 
     // Could these be wrapped in some sort of init function?
-    data.allFile.nodes.map(({ relativeDirectory, childMarkdownRemark }) => {
-        if(childMarkdownRemark === null || relativeDirectory === null) {
-            return false   
+    data.allFile.nodes.map(({relativeDirectory, childMarkdownRemark}) => {
+        if (childMarkdownRemark === null || relativeDirectory === null) {
+            return false
         }
         return createDirectories(relativeDirectory, childMarkdownRemark)
     });
@@ -170,46 +170,39 @@ const IndexPage = ({data}) => {
     });
 
     return (
-        <main>
-            <title>Home Page</title>
-            <nav id="heading-bar">
-                <img id="logo" src="/images/hippo-logo.jpeg"></img>
-                <h1 id="site-title">Hippo Documentation Scaffolding</h1>
-            </nav>
-
-            <div id="tree-view">
-                <ol id="main-list">
-                    {fileMap.map(dir => outputDirectory(dir))}    
-                </ol>
+        <div className="govuk-grid-row">
+            <div className="govuk-grid-column-one-third">
+                <div id="tree-view">
+                    <ol id="main-list">
+                        {fileMap.map(dir => outputDirectory(dir))}
+                    </ol>
+                </div>
             </div>
-            <div 
-                id="content-area"
-                dangerouslySetInnerHTML={{ __html: content}}
-            >
+            <div className="govuk-grid-column-two-thirds" dangerouslySetInnerHTML={{__html: content}}>
             </div>
-        </main>
+        </div>
     )
 };
 
-export const query = graphql `
-query IndexPageQuery {
-    allFile(
-      filter: {sourceInstanceName: {eq: "content"}, base: {glob: "*.md"}, relativeDirectory: {glob: "markdown/**"}}
-      sort: {order: ASC, fields: relativePath}
-    ) {
-      nodes {
-        relativeDirectory
-        sourceInstanceName
-        childMarkdownRemark {
-          frontmatter {
-            date
-            slug
-            title
-          }
-          html
+export const query = graphql`
+    query IndexPageQuery {
+        allFile(
+            filter: {sourceInstanceName: {eq: "content"}, base: {glob: "*.md"}, relativeDirectory: {glob: "markdown/**"}}
+            sort: {order: ASC, fields: relativePath}
+        ) {
+            nodes {
+                relativeDirectory
+                sourceInstanceName
+                childMarkdownRemark {
+                    frontmatter {
+                        date
+                        slug
+                        title
+                    }
+                    html
+                }
+            }
         }
-      }
-    }
-}`
+    }`
 
 export default IndexPage

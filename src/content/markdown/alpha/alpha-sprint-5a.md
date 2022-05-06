@@ -5,9 +5,9 @@ title: "Alpha - Sprint 5a"
 area: "Alpha-Work"
 ---
 
-#Interactive Wireframe Research Tool - Sprint 5a
+# Interactive Wireframe Research Tool - Sprint 5a
 
-##What we’ve done
+## What we’ve done
 
 We designed this prototype in order:
 
@@ -21,7 +21,7 @@ Routes into to better understand next steps for FE users. So far we have spent m
 
 The 'hopping off point’ to opportunities is a critical part of the overall journey.
 
-##User research
+## User research
 
 Some of the insights we attained are:
 
@@ -109,7 +109,7 @@ Link to user research findings:
 ...
 
 
-##Screenshots 
+## Screenshots 
 
 **Start page**
 ![startpage](/images/sprint-5a/Home.png)
