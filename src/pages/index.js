@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
-import {graphql} from 'gatsby';
+import {graphql, useStaticQuery} from 'gatsby';
 import '../styles/global.sass';
 
 const IndexPage = ({data}) => {
+
     const [content, setContent] = useState();
     const fileMap = [];
 
