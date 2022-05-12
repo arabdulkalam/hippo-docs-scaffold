@@ -5,9 +5,9 @@ title: "Alpha - Sprint 6a"
 area: "Alpha-Work"
 ---
 
-#Interactive Wireframe Research Tool - Sprint 6a
+# Interactive Wireframe Research Tool - Sprint 6a
 
-##What we’ve done
+## What we’ve done
 
 We designed this prototype in order test our:
 

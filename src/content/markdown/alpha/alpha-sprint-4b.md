@@ -5,9 +5,9 @@ title: "Alpha - Sprint 4b"
 area: "Alpha-Work"
 ---
 
-#Interactive Wireframe Research Tool - Sprint 4b
+# Interactive Wireframe Research Tool - Sprint 4b
 
-##What we’ve done
+## What we’ve done
 
 1. We think that a separate website from 'Get into Teaching' will provide more relevant information about teaching FE
 
@@ -17,7 +17,7 @@ area: "Alpha-Work"
 
 4. Then we will see that user needs will be more closely met than on GIT  
 
-##User research
+## User research
 
 1. Users are apt to describe Get into Teaching site as aimed at younger adults
 
@@ -46,7 +46,7 @@ Link to user research findings:
 
 UR findings - Sprint 4b
 
-##Screenshots
+## Screenshots
 
 **Start page with COVID banner**
 ![startpage_with_banner](/images/sprint-4b/Homepage%20with%20COVID%20banner.png)

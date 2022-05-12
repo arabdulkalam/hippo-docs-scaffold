@@ -3,11 +3,12 @@ slug: "/history/alpha-sprint-3"
 date: "2021-01-25"
 title: "Alpha - Sprint 3"
 area: "Alpha-Work"
+tags: "tag1,tag2"
 ---
 
-Interactive Wireframe Research Tool - Sprint 3
+# Interactive Wireframe Research Tool - Sprint 3
 
-What we’ve done
+## What we’ve done
 
 We designed this prototype in order:
 
