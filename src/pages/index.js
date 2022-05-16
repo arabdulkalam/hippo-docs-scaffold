@@ -198,7 +198,7 @@ const IndexPage = ({data}) => {
 export const query = graphql`
     query IndexPageQuery {
         allFile(
-            filter: {sourceInstanceName: {eq: "content"}, base: {glob: "*.md"}, relativeDirectory: {glob: "markdown2/**"}}
+            filter: {sourceInstanceName: {eq: "content"}, base: {glob: "*.md"}, relativeDirectory: {glob: "markdown/**"}}
             sort: {order: ASC, fields: relativePath}
         ) {
             nodes {
