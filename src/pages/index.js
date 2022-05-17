@@ -5,7 +5,7 @@ import EmptyPageContent from '../components/emptyPageContent';
 
 const IndexPage = ({data}) => {
 
-    const [content, setContent] = useState({tags: [], html: ''});
+    const [content, setContent] = useState({tags: [], html: '', fileMap: []});
     const fileMap = [];
 
     const handleClick = (e, node) => {
