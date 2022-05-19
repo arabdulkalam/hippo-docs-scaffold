@@ -182,7 +182,7 @@ const IndexPage = ({data}) => {
                     </div>
                 </div>
                 <div>
-                    <div><ul>{content.tags ? content.tags.map(t => (<li className="tag"><a href={`/tag?q=${encodeURIComponent(t)}`}>{t}</a></li>)) : ''}</ul></div>
+                    <div><ul>{content.tags ? content.tags.map(t => (<li className="tag" key={t}><a href={`/tag?q=${encodeURIComponent(t)}`}>{t}</a></li>)) : ''}</ul></div>
                     <div className="govuk-grid-column-two-thirds" dangerouslySetInnerHTML={{__html: content.html}}></div>
                 </div>
             </div>
