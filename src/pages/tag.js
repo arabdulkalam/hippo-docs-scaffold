@@ -89,7 +89,7 @@ const TagPage = ({data}) => {
 
     return (
         <div className="govuk-grid-row">
-            <h1 className="govuk-heading-xl search-heading">All files with tag: {content.tags[0]}</h1>
+            <h1 className="govuk-heading-xl search-heading">All files with tag: {content.queryTags}</h1>
             <div className="govuk-grid-column-one-third">
                 <div className="govuk-form-group search-filters">
                     <label className="govuk-label" htmlFor="sort">
