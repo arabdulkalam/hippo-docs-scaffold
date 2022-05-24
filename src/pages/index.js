@@ -1,10 +1,11 @@
 import React, {useState} from 'react'
 import {graphql, useStaticQuery} from 'gatsby';
 import '../styles/global.sass';
+import EmptyPageContent from '../components/emptyPageContent';
 
 const IndexPage = ({data}) => {
 
-    const [content, setContent] = useState({tags: [], html: ''});
+    const [content, setContent] = useState({tags: [], html: '', fileMap: []});
     const fileMap = [];
 
     const handleClick = (e, node) => {
@@ -98,7 +99,7 @@ const IndexPage = ({data}) => {
 
     // Used to render all directories from the structure into HTML
     const outputDirectory = (directory) => {
-        const child = directory.data.find(dir => dir.parent === directory.name);
+        const child = directory.data.find(dir => dir.parent === directory.name);       
 
         if (child === undefined) {
             return (
@@ -169,22 +170,29 @@ const IndexPage = ({data}) => {
     fileMap.forEach(dir => {
         nestDirectory(dir);
     });
-
-    return (
-        <div className="govuk-grid-row">
-            <div className="govuk-grid-column-one-third">
-                <div id="tree-view">
-                    <ol id="main-list">
-                        {fileMap.map(dir => outputDirectory(dir))}
-                    </ol>
+    
+    if (fileMap.length > 0){
+        return (
+            <div className="govuk-grid-row">
+                <div className="govuk-grid-column-one-third">
+                    <div id="tree-view">
+                        <ol id="main-list">
+                            {fileMap.map(dir => outputDirectory(dir))}
+                        </ol>
+                    </div>
+                </div>
+                <div>
+                    <div><ul>{content.tags ? content.tags.map(t => (<li className="tag" key={t}><a href={`/tag?q=${encodeURIComponent(t)}`}>{t}</a></li>)) : ''}</ul></div>
+                    <div className="govuk-grid-column-two-thirds" dangerouslySetInnerHTML={{__html: content.html}}></div>
                 </div>
             </div>
-            <div>
-                <div><ul>{content.tags.map(t => (<li className="tag"><a href={`/tag?q=${encodeURIComponent(t)}`}>{t}</a></li>))}</ul></div>
-                <div className="govuk-grid-column-two-thirds" dangerouslySetInnerHTML={{__html: content.html}}></div>
-            </div>
-        </div>
-    )
+        )
+    }
+    else{
+        return (
+            EmptyPageContent()
+        )
+    }    
 };
 
 export const query = graphql`
