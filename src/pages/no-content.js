@@ -1,17 +1,17 @@
 import React from "react"
-import "./NoContent.sass"
+import "./no-content.sass"
 
 const NoContent = () => {
     return (
-        <>
+        <main className="width-container">
             <h1>Getting started</h1>
-            <div className="width-container">
+            <div>
                 <ol>
                     <li>Add some markdown files (*.md) to the `content` folder</li>
                     <li>Add any referenced images to the `content/images` (*.png, *.jpeg supported) folder</li>
                 </ol>
             </div>
-        </>
+        </main>
     )
 }
 

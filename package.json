@@ -1,9 +1,9 @@
 {
-  "name": "hippo_documentation_scaffhold",
+  "name": "hippo-documentation-scaffold",
   "version": "1.0.0",
   "private": true,
-  "description": "hippo_documentation_scaffhold",
-  "author": "astral-g",
+  "description": "Hippo documentation scaffold",
+  "author": "hippo-digital",
   "keywords": [
     "gatsby"
   ],
