@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {graphql, useStaticQuery} from "gatsby";
+import "./NavigationBar.sass"
 
 
 const NavigationBar = () => {
@@ -7,7 +8,7 @@ const NavigationBar = () => {
         graphql`
             query HeaderQuery {
                 allFile(
-                    filter: {sourceInstanceName: {eq: "content"}, base: {glob: "*.md"}}
+                    filter: {sourceInstanceName: {eq: "content"}, base: {glob: "*.md"}, relativePath: {ne: "Index.md"}}
                     sort: {order: ASC, fields: relativePath}
                 ) {
                     nodes {
@@ -89,8 +90,8 @@ const NavigationBar = () => {
             if(entry.isPage) {
                 return (<li><a href={entry.slug}>{title}</a></li>)
             } else {
-                return (<details className="govuk-details" onToggle={(e) => onNavToggle(e,title)} open={isOpen(title)}>
-                    <summary className="govuk-details__summary">{title}</summary>
+                return (<details onToggle={(e) => onNavToggle(e,title)} open={isOpen(title)}>
+                    <summary>{title}</summary>
                     <ul>
                         { Object.entries(entry).filter(([title,_]) => title !== 'isPage').map(([title,entry]) => {
                             return loop(title, entry)
@@ -104,8 +105,8 @@ const NavigationBar = () => {
     }
 
     return (
-        <div id="tree-view">
-            <ol id="main-list">
+        <div className="nav-bar">
+            <ol>
                 {renderTreeView(tree)}
             </ol>
         </div>

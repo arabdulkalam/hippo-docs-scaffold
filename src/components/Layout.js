@@ -1,13 +1,20 @@
 import React from "react"
 import NavigationBar from "./NavigationBar";
+import "./Layout.sass"
+import Footer from "./Footer";
+import Header from "./Header";
 
 export default function Layout({ nodes, children }) {
     return (
-        <div className="govuk-grid-row">
-            <div className="govuk-grid-column-one-third nav-bar">
-                <NavigationBar nodes={nodes} />
+        <div className="layout-wrapper">
+            <Header />
+            <div className="main-container">
+                <div>
+                    <NavigationBar nodes={nodes} />
+                </div>
+                <div>{children}</div>
             </div>
-            <div className="govuk-grid-column-two-thirds main-content">{children}</div>
+            <Footer />
         </div>
     )
 }

@@ -1,53 +1,20 @@
+@import "variables"
 
-$govuk-global-styles: true
-@import "node_modules/govuk-frontend/govuk/all"
-
-img
-  max-width: 100%
-
-pre
-  white-space: pre-wrap
+body
+  height: 100%
+  margin: 0
+  position: relative
+  min-height: 100%
 
 
-.govuk-details__summary
-  margin-bottom: 0px
-  text-decoration: underline
+.skip-link
+  position: absolute
+  left: -999em
+  width: 100%
 
-.govuk-details
-  font-size: 16px
-  line-height: unset
-  margin-bottom: 0px
+  &:active, &:focus
+    left: 0
+    border: 3px #3399cc solid
+    background-color: #fff
 
-  ul
-    padding-left: 0.8rem
 
-.nav-bar
-  width: 20% !important
-  min-width: 30px
-
-.main-content
-  width: calc(80% - 25px)
-
-#tree-view
-  li
-    list-style: none
-
-.tree-header
-   display: inline-block
-
-.tag
-  display: inline-block
-  padding: 8px
-  text-align: center
-  list-style: none
-  margin-left: 10px
-
-.empty-page-heading
-  margin-left: 30px
-  padding: 100px 0
-
-.search-heading
-  margin-left: 30px
-
-.search-filters
-  margin-left: 30px

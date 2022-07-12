@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {graphql} from 'gatsby';
-import '../styles/global.sass';
+import './tag.sass';
 
 const TagPage = ({data}) => {
     const [content, setContent] = useState({sortedFilteredFileList: [], tags: [], html: '', queryTags: [], sortValue: ''});
@@ -16,7 +16,7 @@ const TagPage = ({data}) => {
     //renders a file from the fileList array as a list item on the page
     const renderFile = (node) => {
         return(
-            <li className="page" key={node.frontmatter.title}>
+            <li key={node.frontmatter.title}>
                 <a
                     href={node.frontmatter}
                     onClick={(event) => handleClick(event, node)}
@@ -43,40 +43,6 @@ const TagPage = ({data}) => {
         return false
     });
 
-    //sorts file list by designated sort type (set by select at top of the page)
-    const sortFileList = (sortBy) => {
-        if (sortBy === 'date'){
-            return sortFilesByDate();
-        }
-        if (sortBy === 'alphabetical'){
-            return sortFilesAlphabetical();
-        }
-    }
-
-    const sortFilesAlphabetical = () => {
-        return tagFilteredFileList.sort((a, b)=> {
-            let titleA = a.childMarkdownRemark.frontmatter.title;
-            let titleB = b.childMarkdownRemark.frontmatter.title;
-            return titleA.localeCompare(titleB);
-        });
-    }
-
-    const sortFilesByDate = () => {
-        return tagFilteredFileList.sort((a, b)=> {
-            a = a.childMarkdownRemark.frontmatter.date;
-            b = b.childMarkdownRemark.frontmatter.date;
-            a = a.split('-');
-            b = b.split('-');
-            return a[2] - b[2] || a[1] - b[1] || a[0] - b[0];
-        });
-    }
-
-    //handles updating select value when option is changed
-    const handleChange = (event) => {
-        let newSortValue = event.target.value;
-        setContent({sortedFilteredFileList: sortFileList(newSortValue), tags: content.tags, html: content.html, queryTags: content.queryTags, sortValue: newSortValue});
-    }
-
     //runs the getTagsFromUrl function once only / prevents recursion
     useEffect(() => {
         const getTagsFromUrl = () => {
@@ -88,25 +54,12 @@ const TagPage = ({data}) => {
         }, [tagFilteredFileList]);
 
     return (
-        <div className="govuk-grid-row">
-            <h1 className="govuk-heading-xl search-heading">All files with tag: {content.queryTags}</h1>
-            <div className="govuk-grid-column-one-third">
-                <div className="govuk-form-group search-filters">
-                    <label className="govuk-label" htmlFor="sort">
-                        Sort by
-                    </label>
-                    <select className="govuk-select" id="sort" name="sort" onChange={handleChange}>
-                        <option value="date">Date</option>
-                        <option value="alphabetical">Alphabetical</option>
-                    </select>
-                </div>
-                <div id="tree-view">
-                    <ol id="main-list">{content.sortedFilteredFileList.map( file => renderFile(file.childMarkdownRemark))}</ol>
-                </div>
-            </div>
+        <div>
+            <h1>All files with tag: {content.queryTags}</h1>
             <div>
-                <div><ul>{content.tags ? content.tags.map(t => (<li className="tag" key={t}><a href={`/tag?q=${encodeURIComponent(t)}`}>{t}</a></li>)) : ''}</ul></div>
-                <div className="govuk-grid-column-two-thirds" dangerouslySetInnerHTML={{__html: content.html}}></div>
+                <div>
+                    <ol>{content.sortedFilteredFileList.map( file => renderFile(file.childMarkdownRemark))}</ol>
+                </div>
             </div>
         </div>
     )
@@ -115,11 +68,10 @@ const TagPage = ({data}) => {
 export const query = graphql`
     query SearchPageQuery{
         allFile(
-            filter: {sourceInstanceName: {eq: "content"}, base: {glob: "*.md"}, relativeDirectory: {glob: "markdown/**"}}
+            filter: {sourceInstanceName: {eq: "content"}, base: {glob: "*.md"}}
             sort: {order: ASC, fields: relativePath}
         ) {
             nodes {
-                relativeDirectory
                 sourceInstanceName
                 childMarkdownRemark {
                     frontmatter {
