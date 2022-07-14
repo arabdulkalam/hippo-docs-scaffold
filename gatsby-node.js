@@ -46,8 +46,6 @@ exports.createPages = async function ({ actions, graphql }) {
             }
         }`)
 
-    console.log(data.allFile)
-
     if(data.allFile.totalCount === 0) {
         actions.createPage({
             path: '/',

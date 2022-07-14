@@ -6,7 +6,7 @@ import "./NavigationBar.sass"
 const NavigationBar = () => {
     const {allFile} = useStaticQuery(
         graphql`
-            query HeaderQuery {
+            query NavBarQuery {
                 allFile(
                     filter: {sourceInstanceName: {eq: "content"}, base: {glob: "*.md"}, relativePath: {ne: "Index.md"}}
                     sort: {order: ASC, fields: relativePath}
@@ -105,7 +105,7 @@ const NavigationBar = () => {
     }
 
     return (
-        <div className="nav-bar">
+        <div className="sidebar">
             <ol>
                 {renderTreeView(tree)}
             </ol>

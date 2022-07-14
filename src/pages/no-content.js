@@ -1,5 +1,6 @@
 import React from "react"
 import "./no-content.sass"
+import {Link} from "gatsby";
 
 const NoContent = () => {
     return (
@@ -10,6 +11,9 @@ const NoContent = () => {
                     <li>Add some markdown files (*.md) to the `content` folder</li>
                     <li>Add any referenced images to the `content/images` (*.png, *.jpeg supported) folder</li>
                 </ol>
+            </div>
+            <div>
+                <Link to="/">Click here once you have added some content</Link>
             </div>
         </main>
     )

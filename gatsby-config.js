@@ -1,4 +1,13 @@
 module.exports = {
+    siteMetadata: {
+      header: {
+          title: "Site title",
+          description: "Site description",
+      },
+      footer: {
+        text: "Some footer text"
+      }
+    },
     plugins: ["gatsby-plugin-sass", "gatsby-plugin-image", "gatsby-transformer-remark", "gatsby-plugin-sharp", "gatsby-transformer-sharp",
         {
             resolve: 'gatsby-source-filesystem',

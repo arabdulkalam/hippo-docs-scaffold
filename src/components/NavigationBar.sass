@@ -1,9 +1,36 @@
-.nav-bar
-  min-width: 20rem
+.sidebar
+  margin: 0
+  padding: 0
+  width: 200px
+  background-color: #f1f1f1
+  position: fixed
+  height: 100%
+  overflow: auto
 
-  ol
-    padding-left: 10px
+  @media screen and (max-width: 700px)
+    width: 100%
+    height: auto
+    position: relative
+
+  @media screen and (max-width: 400px)
+    float: none
 
   li
     list-style: none
 
+  a
+    display: block
+    color: black
+    padding: 5px
+    text-decoration: none
+
+    &:active
+      background-color: #04AA6D
+      color: white
+
+    &:hover:not(.active)
+      background-color: #555
+      color: white
+
+  details
+    margin-left: -9px

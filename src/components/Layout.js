@@ -3,18 +3,35 @@ import NavigationBar from "./NavigationBar";
 import "./Layout.sass"
 import Footer from "./Footer";
 import Header from "./Header";
+import {graphql, useStaticQuery} from "gatsby";
 
-export default function Layout({ nodes, children }) {
+export default function Layout({ children }) {
+    const {site:{siteMetadata}} = useStaticQuery(
+        graphql`
+            query HeaderQuery {
+                site {
+                    siteMetadata {
+                      header {
+                        title
+                        description
+                      }
+                      footer {
+                        text
+                      }
+                    }
+                  }
+                }
+        `)
+
     return (
         <div className="layout-wrapper">
-            <Header />
+            <Header title={siteMetadata.header.title} subtitle={siteMetadata.header.description} />
+            <NavigationBar />
             <div className="main-container">
-                <div>
-                    <NavigationBar nodes={nodes} />
-                </div>
+
                 <div>{children}</div>
             </div>
-            <Footer />
+            <Footer text={siteMetadata.footer.text} />
         </div>
     )
 }
