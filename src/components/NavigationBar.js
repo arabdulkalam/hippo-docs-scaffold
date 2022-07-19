@@ -1,14 +1,62 @@
 import React, {useEffect, useState} from "react";
 import {graphql, useStaticQuery} from "gatsby";
-import "./NavigationBar.sass"
+import styled from "styled-components";
 
+
+const NavBar = styled.div`
+  margin: 0;
+  padding: 0;
+  background-color: ${props => props.theme.navBar.backgroundColor };
+  color: ${props => props.theme.header.color };
+  height: 100%;
+  overflow: auto;
+  border-right: 1px solid ${props => props.theme.navBar.borderColor };
+  width: 25%;
+  max-width: 250px;
+`
+
+const NavBarItem = styled.li`
+  list-style: none;
+  border-bottom: unset;
+`
+
+const NavBarLink = styled.a`
+  display: block;
+  color: ${props => props.theme.navBar.color};
+  padding: 5px;
+  text-decoration: none;
+
+  &:active {
+    background-color: ${props => props.theme.navBar.backgroundColor};
+    color: ${props => props.theme.navBar.color};
+  }
+    
+  &:hover {
+    background-color: ${props => props.theme.navBar.hoverBackgroundColor };
+    color: ${props => props.theme.navBar.hoverColor }
+  }
+`
+
+const NavBarDetails = styled.details`
+  margin-left: -9px
+`
+
+export const styleQuery = graphql`
+  fragment NavBarStyle on SiteSiteMetadataThemeNavBar {
+      backgroundColor
+      color
+      borderColor
+      hoverBackgroundColor
+      hoverColor
+    }
+`
 
 const NavigationBar = () => {
     const {allFile} = useStaticQuery(
         graphql`
             query NavBarQuery {
                 allFile(
-                    filter: {sourceInstanceName: {eq: "content"}, base: {glob: "*.md"}, relativePath: {ne: "Index.md"}}
+                    filter: {sourceInstanceName: {eq: "content"}, base: {glob: "*.md"}}
                     sort: {order: ASC, fields: relativePath}
                 ) {
                     nodes {
@@ -85,16 +133,16 @@ const NavigationBar = () => {
 
         const loop = (title, entry) => {
             if(entry.isPage) {
-                return (<li><a href={entry.slug}>{title}</a></li>)
+                return (<NavBarItem><NavBarLink href={entry.slug}>{title}</NavBarLink></NavBarItem>)
             } else {
-                return (<details onToggle={(e) => onNavToggle(e,title)} open={isOpen(title)}>
+                return (<NavBarDetails onToggle={(e) => onNavToggle(e,title)} open={isOpen(title)}>
                     <summary>{title}</summary>
                     <ul>
                         { Object.entries(entry).filter(([title,_]) => title !== 'isPage').map(([title,entry]) => {
                             return loop(title, entry)
                         }) }
                     </ul>
-                </details>)
+                </NavBarDetails>)
             }
         }
 
@@ -102,11 +150,11 @@ const NavigationBar = () => {
     }
 
     return (
-        <div className="sidebar">
+        <NavBar>
             <ol>
                 {renderTreeView(tree)}
             </ol>
-        </div>
+        </NavBar>
     )
 }
 

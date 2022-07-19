@@ -1,10 +1,24 @@
 import React from "react"
 import NavigationBar from "./NavigationBar";
-import "./Layout.sass"
 import Footer from "./Footer";
 import Header from "./Header";
 import {graphql, useStaticQuery} from "gatsby";
 import Content from "./Content";
+import styled, {ThemeProvider} from "styled-components";
+
+const LayoutWrapper = styled.div`
+  position: relative;
+  height: 100%;
+  min-height: 100vh;
+`
+
+const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  position: fixed;
+  height: 100%;
+`
 
 export default function Layout({ children }) {
     const {site:{siteMetadata}} = useStaticQuery(
@@ -20,19 +34,27 @@ export default function Layout({ children }) {
                       footer {
                         text
                       }
+                      theme {
+                        header { ...HeaderStyle }
+                        footer { ...FooterStyle }
+                        navBar { ...NavBarStyle }
+                        tag { ...TagStyle }
+                      }
                     }
                   }
                 }
         `)
 
     return (
-        <div className="layout-wrapper">
-            <Header {...siteMetadata.header} />
-            <div className="content-wrapper">
-                <NavigationBar />
-                <Content>{children}</Content>
-            </div>
-            <Footer {...siteMetadata.footer} />
-        </div>
+        <ThemeProvider theme={siteMetadata.theme}>
+            <LayoutWrapper>
+                <Header {...siteMetadata.header} />
+                <ContentWrapper>
+                    <NavigationBar />
+                    <Content>{children}</Content>
+                </ContentWrapper>
+                <Footer {...siteMetadata.footer} />
+            </LayoutWrapper>
+        </ThemeProvider>
     )
 }

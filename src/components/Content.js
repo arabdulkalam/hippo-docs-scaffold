@@ -1,8 +1,12 @@
 import React from "react";
-import './Content.sass'
+import styled from "styled-components";
+
+const MainContainer = styled.div`
+  width: 100%;
+`
 
 const Content = ({children}) => {
-    return (<div className="main-container">{children}</div>)
+    return (<MainContainer>{children}</MainContainer>)
 }
 
 export default Content

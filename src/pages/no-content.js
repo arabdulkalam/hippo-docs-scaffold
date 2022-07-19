@@ -1,11 +1,25 @@
 import React from "react"
-import "./no-content.sass"
 import {Link} from "gatsby";
+import styled from "styled-components";
+
+const Container = styled.main`
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column
+`
+
+const Title = styled.h1`
+  padding-bottom: 50px;
+  font-size: 4em
+`
 
 const NoContent = () => {
     return (
-        <main className="width-container">
-            <h1>Getting started</h1>
+        <Container>
+            <Title>Getting started</Title>
             <div>
                 <ol>
                     <li>Add some markdown files (*.md) to the `content` folder</li>
@@ -15,7 +29,7 @@ const NoContent = () => {
             <div>
                 <Link to="/">Click here once you have added some content</Link>
             </div>
-        </main>
+        </Container>
     )
 }
 

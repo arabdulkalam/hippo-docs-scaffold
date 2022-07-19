@@ -1,19 +1,52 @@
 import React from "react";
 import {graphql} from "gatsby";
 import Layout from "../components/Layout";
-import "./page.sass"
+import styled from "styled-components";
+
+const Tag = styled.li`
+  display: inline-block;
+  text-align: center;
+  list-style: none;
+  margin-left: 10px;
+  border-bottom: unset;
+`
+
+const TagLink = styled.a`
+  padding: 8px;
+  color: ${props => props.theme.tag.color};
+  background-color: ${props => props.theme.tag.backgroundColor};
+
+  &:hover {
+    color: ${props => props.theme.tag.hoverColor};
+    background-color: ${props => props.theme.tag.hoverBackgroundColor}
+  }
+`
+
+const ContentDiv = styled.div`
+  padding-left: 20px;
+  padding-right: 20px
+`
+
+export const styleQuery = graphql`
+  fragment TagStyle on SiteSiteMetadataThemeTag{
+      backgroundColor
+      color
+      hoverColor
+      hoverBackgroundColor
+    }
+`
 
 const Page = ({data}) => {
     const tags = data.markdownRemark?.frontmatter.tags?.split(',')
 
     return (<Layout>
-        <div className="content">
-            <ul>{tags ? tags.map(t => (<li className="tag" key={t}>
-                <a href={`/tag?q=${encodeURIComponent(t)}`}>{t}</a>
-            </li>)) : ''}
+        <ContentDiv>
+            <ul>{tags ? tags.map(t => (<Tag key={t}>
+                <TagLink href={`/tag?q=${encodeURIComponent(t)}`}>{t}</TagLink>
+            </Tag>)) : ''}
             </ul>
-        </div>
-        <div className="content" dangerouslySetInnerHTML={{__html: data.markdownRemark.html}}></div>
+        </ContentDiv>
+        <ContentDiv dangerouslySetInnerHTML={{__html: data.markdownRemark.html}}></ContentDiv>
     </Layout>)
 }
 

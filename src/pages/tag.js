@@ -1,26 +1,16 @@
 import React, {useEffect, useState} from 'react'
 import {graphql} from 'gatsby';
-import './tag.sass';
+import Layout from "../components/Layout";
 
 const TagPage = ({data}) => {
     const [content, setContent] = useState({sortedFilteredFileList: [], tags: [], html: '', queryTags: [], sortValue: ''});
     const fileList = data.allFile.nodes;
 
-    //sets state on click of article title/link
-    const handleClick = (e, node) => {
-        e.preventDefault();
-
-        setContent({sortedFilteredFileList: content.sortedFilteredFileList, tags: node.frontmatter.tags?.split(','), html: node.html, queryTags: content.queryTags, sortValue: content.sortValue});
-    }
-
     //renders a file from the fileList array as a list item on the page
     const renderFile = (node) => {
         return(
             <li key={node.frontmatter.title}>
-                <a
-                    href={node.frontmatter}
-                    onClick={(event) => handleClick(event, node)}
-                >
+                <a href={node.frontmatter.slug}>
                     <h4>{node.frontmatter.title}</h4>
                 </a>
                 <p>
@@ -54,14 +44,14 @@ const TagPage = ({data}) => {
         }, [tagFilteredFileList]);
 
     return (
-        <div>
+        <Layout>
             <h1>All files with tag: {content.queryTags}</h1>
             <div>
                 <div>
                     <ol>{content.sortedFilteredFileList.map( file => renderFile(file.childMarkdownRemark))}</ol>
                 </div>
             </div>
-        </div>
+        </Layout>
     )
 }
 
