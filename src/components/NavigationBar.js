@@ -35,10 +35,9 @@ const NavigationBar = () => {
         let state = typeof window !== undefined ? JSON.parse(window.localStorage.getItem('navItems') ?? '[]') : []
         if(e.target.open) {
             state.push(slug)
-            console.log('Nav state', state)
         } else {
-            state = state.filter(function(ele){
-                return ele !== slug;
+            state = state.filter(function(ele, index) {
+                return nodes.findIndex(e => e.childMarkdownRemark?.frontmatter?.title === ele) !== -1
             })
         }
 
@@ -48,13 +47,11 @@ const NavigationBar = () => {
     }
 
     const isOpen = (title) => {
-
         let state = typeof window !== undefined ? JSON.parse(window.localStorage.getItem('navItems') ?? '[]') : []
         return state.findIndex(s => s === title) !== -1
     }
 
     useEffect(() => {
-
         const createObjectPath = (target, pathElements, title, slug) => {
             if(pathElements.length === 0) {
                 return {...target, [title]: {isPage: true, slug}}

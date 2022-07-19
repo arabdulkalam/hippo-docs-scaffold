@@ -4,6 +4,7 @@ import "./Layout.sass"
 import Footer from "./Footer";
 import Header from "./Header";
 import {graphql, useStaticQuery} from "gatsby";
+import Content from "./Content";
 
 export default function Layout({ children }) {
     const {site:{siteMetadata}} = useStaticQuery(
@@ -12,6 +13,7 @@ export default function Layout({ children }) {
                 site {
                     siteMetadata {
                       header {
+                        logo 
                         title
                         description
                       }
@@ -25,13 +27,12 @@ export default function Layout({ children }) {
 
     return (
         <div className="layout-wrapper">
-            <Header title={siteMetadata.header.title} subtitle={siteMetadata.header.description} />
-            <NavigationBar />
-            <div className="main-container">
-
-                <div>{children}</div>
+            <Header {...siteMetadata.header} />
+            <div className="content-wrapper">
+                <NavigationBar />
+                <Content>{children}</Content>
             </div>
-            <Footer text={siteMetadata.footer.text} />
+            <Footer {...siteMetadata.footer} />
         </div>
     )
 }
