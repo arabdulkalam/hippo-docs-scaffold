@@ -1,38 +1,38 @@
 module.exports = {
     siteMetadata: {
-      header: {
-          logo: "/logo.png",
-          title: "Hello world",
-          description: "Test site description",
-      },
-      footer: {
-        text: "Here is the footer"
-      },
-      theme: {
-          footer: {
-             backgroundColor: "#000",
-             color: "#fff",
-             borderColor: "#000"
-          },
-          header: {
-             backgroundColor: "#000",
-             color: "#fff",
-             borderColor: "#000"
-          },
-          navBar: {
-              backgroundColor: "#000",
-              color: "#fff",
-              borderColor: "#000",
-              hoverColor: '#000',
-              hoverBackgroundColor: '#fff'
-          },
-          tag: {
-              backgroundColor: "#000",
-              color: "#fff",
-              hoverColor: "#ff0000",
-              hoverBackgroundColor: "#fff"
-          }
-      }
+        header: {
+            logo: "/logo.png",
+            title: "Title",
+            description: "Description",
+        },
+        footer: {
+            text: "Footer"
+        },
+        theme: {
+            footer: {
+                backgroundColor: "#fff",
+                color: "#0c2340",
+                borderColor: "#979797"
+            },
+            header: {
+                backgroundColor: "#fff",
+                color: "#0c2340",
+                borderColor: "#979797"
+            },
+            navBar: {
+                backgroundColor: "#fff",
+                color: "#0c2340",
+                borderColor: "#0c2340",
+                hoverColor: '#fff',
+                hoverBackgroundColor: '#0c2340'
+            },
+            tag: {
+                backgroundColor: "#004c4b",
+                color: "#fff",
+                hoverColor: "#004c4b",
+                hoverBackgroundColor: "#fff"
+            }
+        }
     },
     plugins: [
         "gatsby-plugin-sass",

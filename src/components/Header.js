@@ -11,7 +11,7 @@ const StyledHeader = styled.header`
 const Logo = styled.img`
   max-width: unset;
   float: left;
-  max-height: 80px;
+  max-height: 100px;
   box-shadow: unset;
   padding: 0px 30px 0px 30px;
   
