@@ -6,7 +6,7 @@ const MainContainer = styled.div`
 `
 
 const Content = ({children}) => {
-    return (<MainContainer>{children}</MainContainer>)
+    return (<MainContainer className="content">{children}</MainContainer>)
 }
 
 export default Content

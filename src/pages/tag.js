@@ -37,7 +37,7 @@ const TagPage = ({data}) => {
     useEffect(() => {
         const getTagsFromUrl = () => {
             let urlSearchString = window.location.search;
-            let searchTags = urlSearchString.split('?q=')[1];
+            let searchTags = decodeURIComponent(urlSearchString.split('?q=')[1]);
             setContent({sortedFilteredFileList: tagFilteredFileList, tags: [], html: '', queryTags: searchTags, sortValue: 'date'});
         }
         getTagsFromUrl()
@@ -45,11 +45,9 @@ const TagPage = ({data}) => {
 
     return (
         <Layout>
-            <h1>All files with tag: {content.queryTags}</h1>
-            <div>
-                <div>
-                    <ol>{content.sortedFilteredFileList.map( file => renderFile(file.childMarkdownRemark))}</ol>
-                </div>
+            <div className="tagSearchResultsContainer">
+                <h1>All files with tag: {content.queryTags}</h1>
+                <ol>{content.sortedFilteredFileList.map( file => renderFile(file.childMarkdownRemark))}</ol>
             </div>
         </Layout>
     )

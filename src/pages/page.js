@@ -13,13 +13,6 @@ const Tag = styled.li`
 
 const TagLink = styled.a`
   padding: 8px;
-  color: ${props => props.theme.tag.color};
-  background-color: ${props => props.theme.tag.backgroundColor};
-
-  &:hover {
-    color: ${props => props.theme.tag.hoverColor};
-    background-color: ${props => props.theme.tag.hoverBackgroundColor}
-  }
 `
 
 const ContentDiv = styled.div`
@@ -27,22 +20,14 @@ const ContentDiv = styled.div`
   padding-right: 20px
 `
 
-export const styleQuery = graphql`
-  fragment TagStyle on SiteSiteMetadataThemeTag{
-      backgroundColor
-      color
-      hoverColor
-      hoverBackgroundColor
-    }
-`
 
 const Page = ({data}) => {
     const tags = data.markdownRemark?.frontmatter.tags?.split(',')
 
     return (<Layout>
         <ContentDiv>
-            <ul>{tags ? tags.map(t => (<Tag key={t}>
-                <TagLink href={`/tag?q=${encodeURIComponent(t)}`}>{t}</TagLink>
+            <ul className="tagList">{tags ? tags.map(t => (<Tag key={t}>
+                <TagLink href={`/tag?q=${encodeURIComponent(t)}`} className="tag" >{t}</TagLink>
             </Tag>)) : ''}
             </ul>
         </ContentDiv>

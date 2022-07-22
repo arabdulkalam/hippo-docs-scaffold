@@ -11,7 +11,7 @@ module.exports = {
         theme: {
             global: {
                 font: {
-                    fontFamily: "'DM Sans'"
+                    fontFamily: "sans-serif"
                 }
             },
             footer: {

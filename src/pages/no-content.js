@@ -23,7 +23,7 @@ const NoContent = () => {
             <div>
                 <ol>
                     <li>Add some markdown files (*.md) to the `content` folder</li>
-                    <li>Be sure to include any front matter at the top of any page that is added <img src="/front-matter.png"/></li>
+                    <li>Be sure to include any front matter at the top of any page that is added <img src="/front-matter.png" alt="frontmatter"/></li>
                     <li>Add any referenced images to the `content/images` (*.png, *.jpeg supported) folder</li>
                 </ol>
             </div>

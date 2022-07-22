@@ -4,15 +4,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import {graphql, useStaticQuery} from "gatsby";
 import Content from "./Content";
-import styled, {ThemeProvider, createGlobalStyle} from "styled-components";
-import '../Fonts.sass'
-
-const GlobalStyle = createGlobalStyle`
-  
-  body {
-    font-family: ${props => props.theme.global.font.fontFamily };
-  }
-`
+import styled from "styled-components";
 
 const LayoutWrapper = styled.div`
   position: relative;
@@ -42,21 +34,12 @@ export default function Layout({ children }) {
                       footer {
                         text
                       }
-                      theme {
-                        global { font { fontFamily } }
-                        header { ...HeaderStyle }
-                        footer { ...FooterStyle }
-                        navBar { ...NavBarStyle }
-                        tag { ...TagStyle }
-                      }
                     }
                   }
                 }
         `)
 
     return (
-        <ThemeProvider theme={siteMetadata.theme}>
-            <GlobalStyle />
             <LayoutWrapper>
                 <Header {...siteMetadata.header} />
                 <ContentWrapper>
@@ -65,6 +48,5 @@ export default function Layout({ children }) {
                 </ContentWrapper>
                 <Footer {...siteMetadata.footer} />
             </LayoutWrapper>
-        </ThemeProvider>
     )
 }
