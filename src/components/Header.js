@@ -19,13 +19,18 @@ const Logo = styled.img`
     box-shadow: unset;
   }
 `
+const HomeLink = styled.a`
+  text-decoration: none;
+  padding-top: unset;
+`
+
 const Title = styled.h1`
   padding-top: unset;
   color: ${props => props.theme.header.color } !important;
-  text-decoration: none
+ 
 `
 
-const Subtitle = styled.h6`
+const Subtitle = styled.h4`
   margin-left: 0.8rem;
   min-height: 23px;
   padding-top: unset;
@@ -43,9 +48,11 @@ export const styleQuery = graphql`
 
 const Header = ({logo, title, description}) => {
     return (<StyledHeader>
-        <Logo src={logo} alt="logo" />
-        <a href="/"><Title>{title}</Title></a>
-        <Subtitle>{description}</Subtitle>
+        <HomeLink href="/">
+            <Logo src={logo} alt="logo" />
+            <Title>{title}</Title>
+            <Subtitle>{description}</Subtitle>
+        </HomeLink>
     </StyledHeader>)
 }
 

@@ -9,6 +9,11 @@ module.exports = {
             text: "Footer"
         },
         theme: {
+            global: {
+                font: {
+                    fontFamily: "'DM Sans'"
+                }
+            },
             footer: {
                 backgroundColor: "#fff",
                 color: "#0c2340",
