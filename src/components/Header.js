@@ -50,8 +50,8 @@ const Header = ({logo, title, description}) => {
     return (<StyledHeader>
         <HomeLink href="/">
             <Logo src={logo} alt="logo" />
-            <Title>{title}</Title>
-            <Subtitle>{description}</Subtitle>
+            <Title dangerouslySetInnerHTML={{__html: title}}></Title>
+            <Subtitle dangerouslySetInnerHTML={{__html: description}}></Subtitle>
         </HomeLink>
     </StyledHeader>)
 }

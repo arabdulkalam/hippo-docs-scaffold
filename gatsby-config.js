@@ -2,11 +2,11 @@ module.exports = {
     siteMetadata: {
         header: {
             logo: "/logo.png",
-            title: "Title",
-            description: "Description",
+            title: "Hippo documentation scaffold",
+            description: "A documentation starter site",
         },
         footer: {
-            text: "Footer"
+            text: "<span>&copy;</span> Copyright 2022, Hippo Digital"
         },
         theme: {
             global: {

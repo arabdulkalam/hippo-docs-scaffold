@@ -24,7 +24,7 @@ export const styleQuery = graphql`
 `
 
 const Footer = ({text}) => {
-    return (<StyledFooter>{text}</StyledFooter>)
+    return (<StyledFooter dangerouslySetInnerHTML={{__html: text}}></StyledFooter>)
 }
 
 export default Footer;
