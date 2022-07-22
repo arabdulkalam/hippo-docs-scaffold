@@ -2,41 +2,11 @@ module.exports = {
     siteMetadata: {
         header: {
             logo: "/logo.png",
-            title: "Hippo documentation scaffold",
-            description: "A documentation starter site",
+            title: "{{project_title}}",
+            description: "{{project_description}}",
         },
         footer: {
-            text: "<span>&copy;</span> Copyright 2022, Hippo Digital"
-        },
-        theme: {
-            global: {
-                font: {
-                    fontFamily: "sans-serif"
-                }
-            },
-            footer: {
-                backgroundColor: "#fff",
-                color: "#0c2340",
-                borderColor: "#979797"
-            },
-            header: {
-                backgroundColor: "#fff",
-                color: "#0c2340",
-                borderColor: "#979797"
-            },
-            navBar: {
-                backgroundColor: "#fff",
-                color: "#0c2340",
-                borderColor: "#0c2340",
-                hoverColor: '#fff',
-                hoverBackgroundColor: '#0c2340'
-            },
-            tag: {
-                backgroundColor: "#004c4b",
-                color: "#fff",
-                hoverColor: "#004c4b",
-                hoverBackgroundColor: "#fff"
-            }
+            text: "<span>&copy;</span> Copyright {{copyright_year}}, {{project_company}}"
         }
     },
     plugins: [
