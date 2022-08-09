@@ -1,3 +1,9 @@
+name: Heroku Deploy
+
+on:
+  push:
+    branches: [ master ]
+
 jobs:
   custom-deploy:
     runs-on: ubuntu-latest
