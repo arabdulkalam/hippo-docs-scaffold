@@ -1,15 +1,15 @@
 exports.createSchemaCustomization = ({ actions }) => {
     const { createTypes } = actions
     const typeDefs = `
-    
-    type File implements Node { 
+
+    type File implements Node {
         childMarkdownRemark: MarkdownRemark
     }
-    
+
     type MarkdownRemark implements Node {
         frontmatter: MarkdownRemarkFrontmatter
     }
-    
+
     type MarkdownRemarkFrontmatter implements Node {
       title: String
       date: String
@@ -40,7 +40,7 @@ exports.createPages = async function ({ actions, graphql }) {
                         }
                         html
                     }
-                    
+
                 }
                 totalCount
             }
