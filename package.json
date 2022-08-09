@@ -4,6 +4,9 @@
   "private": true,
   "description": "Hippo documentation scaffold",
   "author": "hippo-digital",
+  "engines": {
+    "node": "16.x"
+  },
   "keywords": [
     "gatsby"
   ],
