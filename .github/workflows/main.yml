@@ -1,4 +1,4 @@
-- name: AWS Build & Deploy
+name: AWS Build n Deploy
 
 on:
   push:
