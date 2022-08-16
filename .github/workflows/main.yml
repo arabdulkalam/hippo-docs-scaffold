@@ -8,13 +8,3 @@ on:
 jobs:
   deploy:
     runs-on: linux
-    steps:
-      - uses: actions/checkout@v2
-      - name: Cache modules
-        uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: '/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-    
