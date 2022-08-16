@@ -11,6 +11,7 @@
     "gatsby"
   ],
   "scripts": {
+    "lint": "./node_modules/.bin/eslint --ext .js,.jsx --ignore-pattern public .",
     "develop": "gatsby develop",
     "start": "gatsby develop",
     "build": "gatsby build",
