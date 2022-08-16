@@ -34,5 +34,3 @@ jobs:
         run: yarn  install
       - name: Build
         run: yarn build
-      - name: Deploy
-        run: aws s3 sync ./dist s3://aws-codedeploy-nodejs-eu-west-2/hippo-docs-scaffold/
