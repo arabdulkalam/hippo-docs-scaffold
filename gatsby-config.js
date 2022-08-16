@@ -37,7 +37,7 @@ module.exports = {
             options: {
                 plugins: [
                     {
-                        resolve: `gatsby-remark-images`,
+                        resolve: 'gatsby-remark-images',
                         options: {
                             maxWidth: 960,
                             backgroundColor: 'transparent',
@@ -45,13 +45,13 @@ module.exports = {
                         },
                     },
                     {
-                        resolve: `gatsby-remark-image-attributes`,
+                        resolve: 'gatsby-remark-image-attributes',
                         options: {
                             dataAttributes: true
                         }
                     },
                     {
-                        resolve: `gatsby-remark-classes`,
+                        resolve: 'gatsby-remark-classes',
                         options: {
                             classMap: {}
                         }
