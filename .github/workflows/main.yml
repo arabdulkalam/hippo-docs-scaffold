@@ -17,3 +17,11 @@ jobs:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
          restore-keys: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+         - name: Use Node.js 16.x
+            uses: actions/setup-node@v1
+            with:
+              node-version: 16.x
+          - name: Install dependencies
+            run: yarn  install
+          - name: Build
+            run: yarn build
