@@ -16,7 +16,8 @@
     "build": "gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "heroku-postbuild": "gatsby build"
+    "heroku-postbuild": "gatsby build",
+    "deploy": "gatsby-plugin-s3 deploy --yes; export AWS_PAGER=\"\"; aws cloudfront create-invalidation --distribution-id E5FDMTLPHUTLTL --paths '/*';"
   },
   "resolutions": {
     "source-map": "^0.8.0-beta.0"
