@@ -3,6 +3,9 @@ name: AWS Build n Deploy
 on:
   push:
     branches: [ master ]
+    env:
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      S3BUCKET: ${{ secrets.S3_BUCKET}}
 
 jobs:
   deploy:
@@ -31,4 +34,4 @@ jobs:
       - name: Build
         run: yarn build
       - name: Deploy
-        run: aws s3 sync ./dist s3://aws-codedeploy-nodejs-eu-west-2.s3.eu-west-2.amazonaws.com
+        run: aws s3 sync ./dist s3://aws-codedeploy-nodejs-eu-west-2/hippo-docs-scaffold/
