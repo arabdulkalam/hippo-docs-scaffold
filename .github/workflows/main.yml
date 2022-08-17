@@ -39,4 +39,3 @@ jobs:
           aws-region: us-east-1
       - name: Deploy to S3
         run: yarn run deploy
-        
