@@ -21,7 +21,7 @@ exports.createSchemaCustomization = ({ actions }) => {
 }
 
 exports.createPages = async function ({ actions, graphql }) {
-    const { data } = await graphql('
+    const { data } = await graphql(`
      query {
          allFile(
                 filter: {sourceInstanceName: {eq: "content"}, base: {glob: "*.md"}}
@@ -44,7 +44,7 @@ exports.createPages = async function ({ actions, graphql }) {
                 }
                 totalCount
             }
-        }')
+        }`)
 
     if(data.allFile.totalCount === 0) {
         actions.createPage({
