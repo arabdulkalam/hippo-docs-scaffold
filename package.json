@@ -43,6 +43,6 @@
     "sass": "^1.49.9",
     "source-map": "^0.8.0-beta.0",
     "styled-components": "^5.3.5",
-    "gatsby-plugin-s3": "^5.10.1"
+    "gatsby-plugin-s3": "^0.3.8"
   }
 }
