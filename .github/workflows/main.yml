@@ -4,7 +4,10 @@ on:
   push:
     branches: [ master ]
 
-
+# permission can be added at job level or workflow level
+permissions:
+      id-token: write
+      contents: read
 jobs:
   build:
     runs-on: ubuntu-latest
