@@ -15,6 +15,7 @@ module.exports = {
         "gatsby-transformer-remark",
         "gatsby-plugin-sharp",
         "gatsby-transformer-sharp",
+        "gatsby-plugin-s3",
         "gatsby-plugin-styled-components",
         {
             resolve: 'gatsby-source-filesystem',
