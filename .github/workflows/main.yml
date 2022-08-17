@@ -38,4 +38,5 @@ jobs:
           role-to-assume: arn:aws:iam::360057177229:role/githubuser-action-role
           aws-region: us-east-1
       - name: Deploy to S3
-        run: yarn run deploy
+         run: aws s3 sync ./dist s3://aws-codedeploy-nodejs-eu-west-2/hippo-docs-scaffold/
+        #run: yarn run deploy
