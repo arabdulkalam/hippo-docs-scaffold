@@ -32,11 +32,6 @@ jobs:
         run: yarn install
       - name: Build
         run: yarn run build
-      - name: Set AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          role-to-assume: arn:aws:iam::360057177229:role/githubuser-action-role
-          aws-region: us-east-1
       - name: Deploy
         uses: jakejarvis/s3-sync-action@master
         with:
@@ -47,6 +42,5 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           SOURCE_DIR: public
-          DIST_DIR: hippo-docs-scaffold
 
       #   run: aws s3 sync ./dist s3://aws-codedeploy-nodejs-eu-west-2
