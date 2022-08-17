@@ -15,7 +15,6 @@ module.exports = {
         "gatsby-transformer-remark",
         "gatsby-plugin-sharp",
         "gatsby-transformer-sharp",
-        "gatsby-plugin-s3",
         "gatsby-plugin-styled-components",
         {
             resolve: 'gatsby-source-filesystem',
@@ -56,12 +55,6 @@ module.exports = {
                         options: {
                             classMap: {}
                         }
-                    },
-                    {
-                        resolve: 'gatsby-plugin-s3',
-                        options: {
-                            bucketName: 'aws-codedeploy-nodejs-eu-west-2.s3.eu-west-2.amazonaws.com/hippo-docs-scaffold',
-                          }
                     }
                 ]
             }
