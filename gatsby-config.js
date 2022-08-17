@@ -56,6 +56,12 @@ module.exports = {
                         options: {
                             classMap: {}
                         }
+                    },
+                    {
+                        resolve: 'gatsby-plugin-s3',
+                        options: {
+                            bucketName: 'aws-codedeploy-nodejs-eu-west-2.s3.eu-west-2.amazonaws.com/hippo-docs-scaffold',
+                          }
                     }
                 ]
             }
